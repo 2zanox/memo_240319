@@ -10,5 +10,34 @@
  			*
  		FROM
  			`post`
- 	</select>	
+ 	</select>
+ 	
+ 	<!-- select -->
+ 	<select id="selectPostListByUserId" parameterType="int" resultType="com.memo.post.domain.Post">
+ 		SELECT
+ 			`id`
+			, `userId`
+			, `subject`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+		 	`post`
+		WHERE
+			`userId` = #{userId}
+		ORDER BY `id` DESC
+ 	</select>
+ 	
+ 	<!-- insert -->
+ 	<insert id="insertPostList" parameterType="map">
+ 		INSERT
+ 		(
+ 			
+ 		)
+ 		VALUES
+ 		(
+ 			
+ 		)
+ 	</insert>
  </mapper>
