@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.memo.post.domain.Post;
 import com.memo.post.mapper.PostMapper;
@@ -21,9 +22,9 @@ public class PostBO {
 	}
 	
 	// input: 3개의 파라미터
-	// output: 
-	public List<Post> addPostList(String subject, String content, String file){
-		return postMapper.insertPost
+	// output: X
+	public void addPost(int userId, String subject, String content, MultipartFile file){
+		postMapper.insertPost(userId, subject, content, null);
 	}
 	
 }

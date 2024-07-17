@@ -18,6 +18,7 @@
 		<div class="d-flex justify-content-between">
 			<button type="button" id="postListBtn" class="btn btn-dark">목록</button>
 			
+			<!-- 게시글 버튼 -->
 			<div>
 				<button type="button" id="clearBtn" class="btn btn-secondary">모두지우기</button>
 				<button type="button" id="saveBtn" class="btn btn-warning">저장</button>
@@ -33,6 +34,64 @@
 			$("#postListBtn").on('click', function() {
 				location.href = "/post/post-list-view";
 			}); // 목록 버튼 끝
+			
+			// 모두 지우기 버튼
+			$("#clearBtn").on('click', function() {
+				//alert("모두지우기");
+				$("#subject").val(""); // 내용 초기화: val("") 아무것도 없으면 초기화
+				$("#content").val(""); // 내용 초기화
+			}); // 모두지우기 버튼 끝	
+			
+			// 글쓰기 저장 버튼
+			$("#saveBtn").on('click', function() {
+				//alert("글쓰기");
+				let subject = $("#subject").val().trim();
+				let content = $("#content").val();
+				
+				if (!subject) {
+					alert("제목을 입력하세요");
+					return;
+				}
+				
+				if (!content) {
+					alert("내용을 입력하세요");
+					return;
+				}
+				
+				console.log(subject);
+				console.log(content);
+				
+				// form태그를 js(java script)에서 만든다.
+				// 이미지 업로드 시 반드시 필요!
+				let formData = new FormData();
+				formData.append("subject", subject); // key는 name과 같고, 리퀘스트 파라미터 명
+				formData.append("content", content);
+				
+				// AJAX 요청
+				$.ajax({
+					// request
+					type:"post"
+					, url:"/post/create"
+					, data:formData
+					, enctype:"multipart/form-data" // 파일업로드 필수 설정
+					, processData:false // 파일업로드 필수 설정
+					, contentType:false // 파일업로드 필수 설정
+					
+					// response					
+					, success:function(data) {
+						if (data.code == 200) {
+							alert("메모가 저장되었습니다.");
+							// 글목록 화면 이동
+							location.href="/post/post-list-view";
+						} else {
+							alert(data.error_message);
+						}
+					}
+					, error:function(e) {
+						alert("글을 저장하는데 실패했습니다.");
+					}
+				}); // AJAX 끝
+			}); // 글쓰기 저장 버튼 끝
 		}); // ready 끝
     </script>
 </th:block>

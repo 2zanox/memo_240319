@@ -16,8 +16,9 @@ public interface PostMapper {
 	
 	public List<Post> selectPostListByUserId(int userId);
 	
-	public List<Post> insertPostList(
+	public void insertPost(
+			@Param("userId") int userId,
 			@Param("subject") String subject, 
 			@Param("content") String content, 
-			@Param("file") String file);
+			@Param("imagePath") String imagePath);
 }

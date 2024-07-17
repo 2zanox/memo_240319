@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.memo.post.bo.PostBO;
+
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/post")
 @RestController
@@ -21,11 +24,15 @@ public class PostRestController {
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("subject") String subject,
-			@RequestParam(value = "content", required = true) String content,
-			@RequestParam(value = "file", required = true) String file) {
+			@RequestParam("content") String content,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			HttpSession session) {
 		
-		// DB
-		post = postBO.addPost(subject, content, file);
+		// 글쓴이 번호를 session에서 꺼낸다.
+		int userId = (int)session.getAttribute("userId"); // 로그인이 안되어있으면 에러남
+		
+		// DB Insert
+		postBO.addPost(userId, subject, content, file);
 		
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
