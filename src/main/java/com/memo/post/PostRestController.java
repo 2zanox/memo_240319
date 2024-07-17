@@ -30,9 +30,10 @@ public class PostRestController {
 		
 		// 글쓴이 번호를 session에서 꺼낸다.
 		int userId = (int)session.getAttribute("userId"); // 로그인이 안되어있으면 에러남
+		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		// DB Insert
-		postBO.addPost(userId, subject, content, file);
+		postBO.addPost(userId, userLoginId, subject, content, file);
 		
 		// 응답값
 		Map<String, Object> result = new HashMap<>();
