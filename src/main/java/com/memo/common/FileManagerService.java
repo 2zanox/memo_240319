@@ -17,6 +17,7 @@ public class FileManagerService {
 	//public static final String FILE_UPLOAD_PATH = "D:\\이준호\\6_spring_project 학원 프로젝트\\memo\\memo_workspace\\images/"; // 집컴 경로
 	
 	// 메소드
+	
 	// input: MultipartFile, userLoginId
 	// output: String(이미지의 경로)
 	public String uploadFile(MultipartFile file, String loginId) {
